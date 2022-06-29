@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link'; // 넥스트에서 지원
 import { Menu, Input, Row, Col } from 'antd';
-import {memo, useCallback} from "react";
+import {memo} from "react";
 import styled, {createGlobalStyle} from "styled-components";
 import useInput from "../hooks/useInput";
-import LoginForm from "./LoginForm"; // 리액트랑 리덕스랑 연결
+import LoginForm from "./LoginForm";
+import {HomeOutlined, ProfileOutlined, UserAddOutlined, UserOutlined} from "@ant-design/icons";
 
 /* styled-components 로 빼면 리렌더링이 되지 않음 */
 const SearchInput = styled(Input.Search)`
@@ -24,30 +25,33 @@ const Global = createGlobalStyle`
   }
 `;
 
-const AppLayout = memo(( { children } ) => {
+const Wrapper = styled.div``
 
-    const [searchInput, onChangeSearchInput] = useInput('');
+
+
+const AppLayout = memo(( { children } ) => {
 
 
     return (
-        <div>
+        <Wrapper>
             <Global/>
-            <Menu mode="horizontal">
-                <Menu.Item>
-                    <Link href="/"><a>노드버드</a></Link>
+            <Menu mode="horizontal" theme="light" style={{}}>
+                <Menu.Item key={"home"}>
+                    <Link href="/">
+                        <a title="홈"><HomeOutlined /></a>
+                    </Link>
                 </Menu.Item>
-                <Menu.Item>
-                    <Link href="/profile"><a>프로필</a></Link>
+
+                <Menu.Item key={"profile"}>
+                    <Link href="/profile">
+                        <a title="프로필"><ProfileOutlined /></a>
+                    </Link>
                 </Menu.Item>
-                <Menu.Item>
-                    <SearchInput
-                        enterButton
-                        value={searchInput}
-                        onChange={onChangeSearchInput}
-                    />
-                </Menu.Item>
-                <Menu.Item>
-                    <Link href="/signup"><a>회원가입</a></Link>
+
+                <Menu.Item key={"signup"}>
+                    <Link href="/signup">
+                        <a title="회원가입"><UserAddOutlined /></a>
+                    </Link>
                 </Menu.Item>
             </Menu>
             <Row gutter={8}>
@@ -58,11 +62,9 @@ const AppLayout = memo(( { children } ) => {
                     { children }
                 </Col>
                 <Col xs={24} md={6} >
-                    {/* target _blank를 사용 할때는 noreferrer noopener 꼭 써줘야 함 보안 위험떄문에 새창을 누가 열었는지 정보 없앰  */}
-                    <a href="https://www.naver.com" target="_blank" rel="noreferrer noopener">네이버</a>
                 </Col>
             </Row>
-        </div>
+        </Wrapper>
     )
 
 });

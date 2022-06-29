@@ -1,25 +1,24 @@
 import { HYDRATE } from 'next-redux-wrapper';
 import {combineReducers} from "redux";
-import produce from "../util/produce";
+import user from "./user";
+import post from "./post";
 
 
 
 
 const rootReducer = (state, action) => {
-    return produce(state, (draft) => {
-        switch (action.type) {
-            case HYDRATE:
-                console.log('HYDRATE', action);
-                return action.payload;
-            default: {
-                const combinedReducer = combineReducers({
-
-                });
-                return combinedReducer(state, action);
-            }
+    switch (action.type) {
+        case HYDRATE:
+            console.log('HYDRATE', action);
+            return action.payload;
+        default: {
+            const combinedReducer = combineReducers({
+                user,
+                post,
+            });
+            return combinedReducer(state, action);
         }
-    });
-
+    }
 };
 
 
