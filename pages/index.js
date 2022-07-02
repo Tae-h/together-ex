@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 
 const Home = () => {
     const { me } = useSelector((state) => state.user);
-
+``
     useEffect(() => {
         console.log('login result: ', me);
     }, [me]);

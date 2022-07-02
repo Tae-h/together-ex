@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
+import React from 'react';
 import Link from 'next/link'; // 넥스트에서 지원
-import { Menu, Input, Row, Col } from 'antd';
+import {Menu, Input, Row, Col, Layout} from 'antd';
 import styled, {createGlobalStyle} from "styled-components";
-import LoginForm from "./LoginForm";
 import {HomeOutlined, ProfileOutlined, UserAddOutlined} from "@ant-design/icons";
+import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+const { Header, Content, Footer, Sider } = Layout;
 
 /* styled-components 로 빼면 리렌더링이 되지 않음 */
 const SearchInput = styled(Input.Search)`
@@ -31,37 +33,64 @@ const AppLayout = ( { children } ) => {
 
 
     return (
-        <Wrapper>
-            <Global/>
-            <Menu mode="horizontal" theme="light" >
-                <Menu.Item key={"home"}>
-                    <Link href="/">
-                        <a title="홈"><HomeOutlined /></a>
-                    </Link>
-                </Menu.Item>
 
-                <Menu.Item key={"profile"}>
-                    <Link href="/profile">
-                        <a title="프로필"><ProfileOutlined /></a>
-                    </Link>
-                </Menu.Item>
-
-                <Menu.Item key={"signup"}>
-                    <Link href="/signup">
-                        <a title="회원가입"><UserAddOutlined /></a>
-                    </Link>
-                </Menu.Item>
-            </Menu>
-            <Row gutter={8}>
-
-
-                <Col xs={24} md={12} >
-                    { children }
-                </Col>
-
-            </Row>
-        </Wrapper>
-    )
+        <Layout>
+            <Sider
+                breakpoint="lg"
+                collapsedWidth="0"
+                onBreakpoint={(broken) => {
+                    console.log(broken);
+                }}
+                onCollapse={(collapsed, type) => {
+                    console.log(collapsed, type);
+                }}
+            >
+                <div className="logo" />
+                <Menu
+                    theme="dark"
+                    mode="inline"
+                    defaultSelectedKeys={['4']}
+                    items={[UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
+                        (icon, index) => ({
+                            key: String(index + 1),
+                            icon: React.createElement(icon),
+                            label: `nav ${index + 1}`,
+                        }),
+                    )}
+                />
+            </Sider>
+            <Layout>
+                <Header
+                    className="site-layout-sub-header-background"
+                    style={{
+                        padding: 0,
+                    }}
+                />
+                <Content
+                    style={{
+                        margin: '24px 16px 0',
+                    }}
+                >
+                    <div
+                        className="site-layout-background"
+                        style={{
+                            padding: 24,
+                            minHeight: 360,
+                        }}
+                    >
+                        content
+                    </div>
+                </Content>
+                <Footer
+                    style={{
+                        textAlign: 'center',
+                    }}
+                >
+                    Ant Design ©2018 Created by Ant UED
+                </Footer>
+            </Layout>
+        </Layout>
+    );
 
 };
 
