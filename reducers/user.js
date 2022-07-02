@@ -4,7 +4,6 @@ export const initialState = {
     me: null,
     userInfo: null,
 
-
     loginLoading: false, // 로그인 시도중
     loginDone: false,
     loginError: null,
@@ -68,9 +67,6 @@ export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 
 
 
-
-
-
 const reducer = (state = initialState, action) => {
     return produce(state, (draft) => {
         switch (action.type) {
@@ -118,6 +114,7 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOG_IN_SUCCESS: {
+                console.log('login success!!');
                 draft.loginLoading = false;
                 draft.loginDone = true;
                 draft.me = action.data;
@@ -138,7 +135,7 @@ const reducer = (state = initialState, action) => {
             case LOG_OUT_SUCCESS: {
                 draft.logoutDone = true;
                 draft.logoutLoading = false;
-                draft.me = null;
+                draft.me = action.data;
                 break;
             }
             case LOG_OUT_FAILURE: {

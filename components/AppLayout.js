@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link'; // 넥스트에서 지원
 import { Menu, Input, Row, Col } from 'antd';
-import {memo} from "react";
 import styled, {createGlobalStyle} from "styled-components";
-import useInput from "../hooks/useInput";
 import LoginForm from "./LoginForm";
-import {HomeOutlined, ProfileOutlined, UserAddOutlined, UserOutlined} from "@ant-design/icons";
+import {HomeOutlined, ProfileOutlined, UserAddOutlined} from "@ant-design/icons";
 
 /* styled-components 로 빼면 리렌더링이 되지 않음 */
 const SearchInput = styled(Input.Search)`
@@ -29,13 +27,13 @@ const Wrapper = styled.div``
 
 
 
-const AppLayout = memo(( { children } ) => {
+const AppLayout = ( { children } ) => {
 
 
     return (
         <Wrapper>
             <Global/>
-            <Menu mode="horizontal" theme="light" style={{}}>
+            <Menu mode="horizontal" theme="light" >
                 <Menu.Item key={"home"}>
                     <Link href="/">
                         <a title="홈"><HomeOutlined /></a>
@@ -55,19 +53,17 @@ const AppLayout = memo(( { children } ) => {
                 </Menu.Item>
             </Menu>
             <Row gutter={8}>
-                <Col xs={24} md={6} >
-                    <LoginForm />
-                </Col>
+
+
                 <Col xs={24} md={12} >
                     { children }
                 </Col>
-                <Col xs={24} md={6} >
-                </Col>
+
             </Row>
         </Wrapper>
     )
 
-});
+};
 
 AppLayout.propTypes = {
     children: PropTypes.node.isRequired,

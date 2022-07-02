@@ -1,8 +1,10 @@
 import {Button, Checkbox, Form, Image, Input, Space} from 'antd';
-import {useCallback, useEffect, useMemo, useState} from "react";
 import Link  from 'next/link';
 import styled from 'styled-components';
 import useInput from "../hooks/useInput";
+import {useDispatch, useSelector} from "react-redux";
+import {useCallback, useEffect} from "react";
+import {LOG_IN_REQUEST} from "../reducers/user";
 
 const ButtonWrapper = styled.div`
   margin-top: 10px;
@@ -21,14 +23,32 @@ const LoginFormDiv = styled.div`
 `
 
 const LoginForm = () => {
+    const dispatch = useDispatch();
 
+    const { loginLoading, loginError } = useSelector((state) => state.user);
 
     const [email, onChangeEmail] = useInput('');
     const [password, onChangePassword] = useInput('');
 
+    useEffect(() => {
+        if ( loginError ) {
+            alert(loginError);
+        }
+    }, [loginError]);
+
+
+    const onSubmitLogin = useCallback(() => {
+        console.log(email, password);
+        return dispatch({
+            type: LOG_IN_REQUEST,
+            data: {email, password},
+        });
+    }, [email, password]);
+
+
     return (
         <>
-            <FormWrapper>
+            <FormWrapper onFinish={ onSubmitLogin }>
 
                 <div>
                     <center>
@@ -67,6 +87,7 @@ const LoginForm = () => {
                         <Button
                             type="primary"
                             htmlType="submit"
+                            loading={ loginLoading }
                         >
                             로그인
                         </Button>
