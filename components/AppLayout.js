@@ -75,6 +75,11 @@ const ContentWrapper = styled(Layout.Content)`
   width: 100%;
   background: #fff;
 `
+const CardStyles = styled(Card)`
+    border-radius: 8px;
+    overflow: auto;
+`
+
 
 const style = {
     background: '#0092ff',
@@ -178,18 +183,18 @@ const AppLayout = ( { children } ) => {
                 <Content style={{ margin: '10px 10px 0' }} >
                     <ContentWrapper>
                         <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-                            <Card title="Card" size="small" hoverable>
+                            <CardStyles title="Card" size="small" hoverable>
                                 <p>Card content</p>
                                 <p>Card content</p>
-                            </Card>
-                            <Card title="Card" size="small" hoverable>
+                            </CardStyles>
+                            <CardStyles title="Card" size="small" hoverable>
                                 <p>Card content</p>
                                 <p>Card content</p>
-                            </Card>
-                            <Card title="Card" size="small" hoverable>
+                            </CardStyles>
+                            <CardStyles title="Card" size="small" hoverable>
                                 <p>Card content</p>
                                 <p>Card content</p>
-                            </Card>
+                            </CardStyles>
 
                         </Space>
 
