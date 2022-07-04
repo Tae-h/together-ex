@@ -3,7 +3,7 @@ import Link  from 'next/link';
 import styled from 'styled-components';
 import useInput from "../hooks/useInput";
 import {useDispatch, useSelector} from "react-redux";
-import {useCallback, useEffect} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {LOG_IN_REQUEST} from "../reducers/user";
 import {AlipayOutlined, LockOutlined, UserOutlined} from "@ant-design/icons";
 
@@ -43,11 +43,13 @@ const LoginForm = () => {
     const [email, onChangeEmail] = useInput('');
     const [password, onChangePassword] = useInput('');
 
+
     useEffect(() => {
         if ( loginError ) {
             alert(loginError);
         }
     }, [loginError]);
+
 
 
     const onSubmitLogin = useCallback(() => {

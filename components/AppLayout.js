@@ -1,16 +1,27 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import {Card, Col, Drawer, Layout, Menu, Row} from 'antd';
+import React, {useState} from 'react';
+import {Avatar, Badge, Button, Card, Col, Drawer, Layout, Menu, Popover, Row, Space} from 'antd';
 import styled, {createGlobalStyle} from "styled-components";
 import SiderMenu from "./SiderMenu";
 import Link from "next/link";
-import {UserAddOutlined, UserOutlined} from "@ant-design/icons";
-const { Header, Content, Footer } = Layout;
+import {
+    MenuFoldOutlined,
+    MenuOutlined,
+    MenuUnfoldOutlined, UploadOutlined,
+    UserAddOutlined,
+    UserOutlined,
+    VideoCameraOutlined
+} from "@ant-design/icons";
+const { Header, Content, Footer, Sider } = Layout;
 
 /* styled-components 로 빼면 리렌더링이 되지 않음 */
 
 
 const Global = createGlobalStyle`
+  .ant-popover-inner-content {
+    padding: 0 !important;
+    width: 200px;
+  }
   .ant-row {
     margin-right: 0 !important;
     margin-left: 0 !important;
@@ -70,8 +81,35 @@ const style = {
     padding: '8px 0',
 };
 
+const content = (
+    <Menu
+        theme="light"
+        mode="inline"
+        defaultSelectedKeys={['1']}
+        items={[UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
+            (icon, index) => ({
+                key: String(index + 1),
+                icon: React.createElement(icon),
+                label: `nav ${index + 1}`,
+            }),
+        )}
+    />
+);
+
+
 const AppLayout = ( { children } ) => {
 
+    const [collapsed, setCollapsed] = useState(false);
+    const [visible, setVisible] = useState(false);
+
+    const toggleCollapsed = () => {
+        setCollapsed(!collapsed);
+        setVisible(true);
+    };
+
+    const onClose = () => {
+        setVisible(false);
+    };
 
     return (
 
@@ -79,38 +117,82 @@ const AppLayout = ( { children } ) => {
             <Global />
 
             {/* 사이드 메뉴 */}
-            <SiderMenu />
+            {/*<SiderMenu />*/}
 
             <Layout>
                 {/* 헤더 */}
                 <HeaderWrapper>
                     <Row>
-                        <Col xs={24} sm={24} md={6} lg={6} xl={5} xxl={4} style={{ textAlign: 'center' }}>
-                            <h1>로고</h1>
-                        </Col>
-                        <Col xs={0} sm={0} md={18} lg={18} xl={19} xxl={20}>
-                            <Menu mode="horizontal">
-                                <Menu.Item icon={<UserOutlined />}>
-                                    <Link href="/"><a>프로필</a></Link>
-                                </Menu.Item>
+                        <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4} style={{ textAlign: 'center' }}>
+                            <Button
+                                onClick={toggleCollapsed}
+                                style={{
+                                    marginBottom: 16,
+                                }}
+                                type="text"
+                                size={"large"}
+                                ghost={false}
+                                icon={<MenuOutlined />}
+                            />
 
-                                <Menu.Item icon={<UserAddOutlined />}>
-                                    <Link href="/"><a>회원가입</a></Link>
-                                </Menu.Item>
-                            </Menu>
+                            <Drawer title="Menu"
+                                    placement="left"
+                                    onClose={onClose}
+                                    visible={visible}
+                                    closable={true}
+                                    width={260}
+                                    headerStyle={{ textAlign: 'center' }}
+                                    bodyStyle={{ padding: 0 }}
+                            >
+                                <Menu
+                                    theme="light"
+                                    mode="inline"
+                                    defaultSelectedKeys={['1']}
+                                    items={[UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
+                                        (icon, index) => ({
+                                            key: String(index + 1),
+                                            icon: React.createElement(icon),
+                                            label: `nav ${index + 1}`,
+                                        }),
+                                    )}
+                                />
+                            </Drawer>
+                        </Col>
+
+                        <Col xs={16} sm={16} md={16} lg={16} xl={16} xxl={16} style={{ textAlign: 'center' }}>
+                            <Link href="/" ><a style={{ textAlign: 'center' }}>로고</a></Link>
+                        </Col>
+
+
+                        <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4} style={{ textAlign: 'center' }}>
+                            <Popover placement="bottomRight"  content={content} trigger="click">
+                                <Badge count={1}>
+                                    <Avatar  icon={<UserOutlined />} />
+                                </Badge>
+                            </Popover>
                         </Col>
                     </Row>
                 </HeaderWrapper>
 
                 {/* 컨텐츠 */}
-                <Content style={{margin: '10px 10px 0'}} >
+                <Content style={{ margin: '10px 10px 0' }} >
                     <ContentWrapper>
-                        <Row gutter={[8, 16]}>
-                            <Col className="gutter-row" span={6}>
-                                <div style={style}>col-6</div>
-                            </Col>
+                        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+                            <Card title="Card" size="small" hoverable>
+                                <p>Card content</p>
+                                <p>Card content</p>
+                            </Card>
+                            <Card title="Card" size="small" hoverable>
+                                <p>Card content</p>
+                                <p>Card content</p>
+                            </Card>
+                            <Card title="Card" size="small" hoverable>
+                                <p>Card content</p>
+                                <p>Card content</p>
+                            </Card>
 
-                        </Row>
+                        </Space>
+
                     </ContentWrapper>
                 </Content>
 
