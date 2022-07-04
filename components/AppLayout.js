@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Col, Layout, Menu, Row} from 'antd';
+import {Card, Col, Drawer, Layout, Menu, Row} from 'antd';
 import styled, {createGlobalStyle} from "styled-components";
 import SiderMenu from "./SiderMenu";
 import Link from "next/link";
@@ -53,19 +53,35 @@ const HeaderWrapper = styled(Layout.Header)`
   box-shadow: 2px 0 8px #00000026;
 `
 
+const LayoutWrapper = styled(Layout)`
+  height: 100%;
+`
+
+const ContentWrapper = styled(Layout.Content)`
+  padding: 24px;
+  minHeight: 360;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+`
+
+const style = {
+    background: '#0092ff',
+    padding: '8px 0',
+};
+
 const AppLayout = ( { children } ) => {
 
 
     return (
 
-        <Layout style={{height: '100%'}}>
+        <LayoutWrapper>
             <Global />
 
             {/* 사이드 메뉴 */}
             <SiderMenu />
 
             <Layout>
-
                 {/* 헤더 */}
                 <HeaderWrapper>
                     <Row>
@@ -87,31 +103,22 @@ const AppLayout = ( { children } ) => {
                 </HeaderWrapper>
 
                 {/* 컨텐츠 */}
-                <Content
-                    style={{
-                        margin: '24px 16px 0',
-                    }}
-                >
-                    <div
-                        className="site-layout-background"
-                        style={{
-                            padding: 24,
-                            minHeight: 360,
-                            height: '100%',
-                        }}
-                    >
-                        { children }
-                    </div>
+                <Content style={{margin: '10px 10px 0'}} >
+                    <ContentWrapper>
+                        <Row gutter={[8, 16]}>
+                            <Col className="gutter-row" span={6}>
+                                <div style={style}>col-6</div>
+                            </Col>
+
+                        </Row>
+                    </ContentWrapper>
                 </Content>
-                <Footer
-                    style={{
-                        textAlign: 'center',
-                    }}
-                >
-                    Ant Design ©2018 Created by Ant UED
+
+                <Footer style={{ textAlign: 'center'}} >
+
                 </Footer>
             </Layout>
-        </Layout>
+        </LayoutWrapper>
     );
 
 };

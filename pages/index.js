@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import AppLayout from "../components/AppLayout";
 import LoginForm from "../components/LoginForm";
 import {useSelector} from "react-redux";
+import {Avatar, Card, Col} from "antd";
 
 const Home = () => {
     const { me } = useSelector((state) => state.user);
@@ -14,6 +15,7 @@ const Home = () => {
       <>
           {me &&
           <AppLayout>
+
 
           </AppLayout>}
             {/* 로그인이 안되어 있을 경우 */}
