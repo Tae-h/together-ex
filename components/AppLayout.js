@@ -56,6 +56,22 @@ const Global = createGlobalStyle`
     box-shadow: 2px 0 8px #00000026;
     border-radius: 0 4px 4px 0;
   }
+  .card-list .ant-space-item .ant-card-head {
+      border: none;
+  }
+  .card-list .ant-space-item .ant-card-head {
+      border: none;
+  }
+  .card-list .ant-card-bordered {
+      border: transparent;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 8%);
+  }
+  .card-list .ant-card-hoverable:hover {
+      border-color: transparent;
+      box-shadow: 0 1px 2px -2px rgb(0 0 0 / 16%), 0 3px 6px 0 rgb(0 0 0 / 12%), 0 5px 12px 4px rgb(0 0 0 / 9%);
+  }
+  
+  
 `;
 
 const HeaderWrapper = styled(Layout.Header)`
@@ -182,7 +198,7 @@ const AppLayout = ( { children } ) => {
                 {/* 컨텐츠 */}
                 <Content style={{ margin: '10px 10px 0' }} >
                     <ContentWrapper>
-                        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+                        <Space direction="vertical" size="middle" style={{ display: 'flex' }} className={'card-list'}>
                             <CardStyles title="Card" size="small" hoverable>
                                 <p>Card content</p>
                                 <p>Card content</p>
