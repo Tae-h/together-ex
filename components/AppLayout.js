@@ -78,6 +78,7 @@ const HeaderWrapper = styled(Layout.Header)`
   padding: 0;
   background: #fff;
   box-shadow: 2px 0 8px #00000026;
+  border-bottom: 1px solid #ddd;
 `
 
 const LayoutWrapper = styled(Layout)`
@@ -142,7 +143,7 @@ const AppLayout = ( { children } ) => {
 
             <Layout>
                 {/* 헤더 */}
-                <HeaderWrapper style={{ borderBottom: '1px solid #ddd' }}>
+                <HeaderWrapper>
                     <Row>
                         <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4} style={{ textAlign: 'center' }}>
                             <Button
