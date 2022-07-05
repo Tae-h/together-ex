@@ -3,10 +3,13 @@ import AppLayout from "../components/AppLayout";
 import LoginForm from "../components/LoginForm";
 import {useSelector} from "react-redux";
 import {Avatar, Card, Col} from "antd";
+import KakaoLogin from "../components/KakaoLogin";
 
 const Home = () => {
     const { me } = useSelector((state) => state.user);
-``
+
+
+
     useEffect(() => {
         console.log('login result: ', me);
     }, [me]);
@@ -20,6 +23,7 @@ const Home = () => {
           </AppLayout>}
             {/* 로그인이 안되어 있을 경우 */}
           {!me && <LoginForm />}
+          {!me && <KakaoLogin />}
       </>
   )
 }
