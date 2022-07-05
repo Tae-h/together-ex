@@ -30,6 +30,10 @@ const iconStyles = {
     verticalAlign: 'middle',
     cursor: 'pointer',
 };
+const inputWrap = {
+    margin: '0 auto',
+    maxWidth: '500px',
+};
 
 
 
@@ -75,36 +79,39 @@ const LoginForm = () => {
                     </center>
                 </div>
 
-                <LoginFormDiv>
-                    <label htmlFor="user-email"></label>
-                    <br/>
-                    <Input name="user-email"
-                           type="email"
-                           value={ email }
-                           onChange={ onChangeEmail }
-                           required
-                           placeholder="Email"
-                           size={"large"}
-                           prefix={<UserOutlined />}
-                    />
-                </LoginFormDiv>
+                <div className="input-wrap" style={{...inputWrap}}>
+                    <LoginFormDiv>
+                        <label htmlFor="user-email"></label>
+                        <br/>
+                        <Input name="user-email"
+                               type="email"
+                               value={ email }
+                               onChange={ onChangeEmail }
+                               required
+                               placeholder="Email"
+                               size={"large"}
+                               prefix={<UserOutlined />}
+                        />
+                    </LoginFormDiv>
 
-                <LoginFormDiv>
-                    <label htmlFor="user-password"></label>
-                    <Input.Password
-                        name="user-password"
-                        type="password"
-                        value={ password }
-                        onChange={ onChangePassword }
-                        placeholder="password"
-                        size={"large"}
-                        prefix={<LockOutlined />}
-                        required />
-                </LoginFormDiv>
+                    <LoginFormDiv>
+                        <label htmlFor="user-password"></label>
+                        <Input.Password
+                            name="user-password"
+                            type="password"
+                            value={ password }
+                            onChange={ onChangePassword }
+                            placeholder="password"
+                            size={"large"}
+                            prefix={<LockOutlined />}
+                            required />
+                    </LoginFormDiv>
 
-                <RememberDiv>
-                    <Checkbox>기억하기</Checkbox>
-                </RememberDiv>
+                    <RememberDiv>
+                        <Checkbox>기억하기</Checkbox>
+                    </RememberDiv>
+                </div>
+
 
                 <ButtonWrapper>
                     <Space size={8}>
