@@ -142,7 +142,7 @@ const AppLayout = ( { children } ) => {
 
             <Layout>
                 {/* 헤더 */}
-                <HeaderWrapper>
+                <HeaderWrapper style={{ borderBottom: '1px solid #ddd' }}>
                     <Row>
                         <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4} style={{ textAlign: 'center' }}>
                             <Button
@@ -196,7 +196,7 @@ const AppLayout = ( { children } ) => {
                 </HeaderWrapper>
 
                 {/* 컨텐츠 */}
-                <Content style={{ margin: '10px 10px 0' }} >
+                <Content>
                     <ContentWrapper>
                         <Space direction="vertical" size="middle" style={{ display: 'flex' }} className={'card-list'}>
                             <CardStyles title="Card" size="small" hoverable>
