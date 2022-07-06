@@ -74,15 +74,12 @@ const Global = createGlobalStyle`
       box-shadow: 0 1px 2px -2px rgb(0 0 0 / 16%), 0 3px 6px 0 rgb(0 0 0 / 12%), 0 5px 12px 4px rgb(0 0 0 / 9%);
   }
   
-  .wrap .ant-layout {
-     
-  }
   .wrap .ant-layout .btn-wrap {
       position: fixed;
       right: 25px;
       bottom: 60px;
   }
-  .wrap .ant-layout .btn-wrap .edit-btn {
+  .wrap .ant-layout .btn-wrap .btn {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -243,7 +240,9 @@ const AppLayout = ( { children } ) => {
 
                 </Footer>
                 <div className={'btn-wrap'}>
-                    <EditOutlined className={'edit-btn'} />
+                    <div className={'btn'}>
+                        <EditOutlined className={'eddit-btn'} />
+                    </div>
                 </div>
             </Layout>
         </LayoutWrapper>
