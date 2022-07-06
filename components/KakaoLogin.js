@@ -1,14 +1,16 @@
 import {ButtonWrapper, FormWrapper} from "./LoginForm";
 import {Button, Image, Space} from "antd";
 import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {KAKAO_LOGIN_REQUEST} from "../reducers/user";
 
 
 const kakaoInit = () => {
-
     Kakao.init(`98620a0c1135f44acb9529edcf4f1f01`);
 }
 
 const KakaoLogin = () => {
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if ( !Kakao.isInitialized() ) {
@@ -22,7 +24,11 @@ const KakaoLogin = () => {
             return console.log('Kakao 인스턴스가 없음!');
         }
 
-        Kakao.Auth.login({
+        dispatch({
+            type: KAKAO_LOGIN_REQUEST,
+        });
+
+        /*Kakao.Auth.login({
             success: auth => {
                 console.log('Login', auth);
                 getKakaoUserInfo();
@@ -31,16 +37,14 @@ const KakaoLogin = () => {
                 console.error('login error', error);
                 alert(JSON.stringify(error));
             },
-        });
+        });*/
     }
 
     const getKakaoUserInfo = () => {
         console.log('get Info');
         Kakao.API.request({
             url: '/v2/user/me',
-            data: {
-                property_keys: ["kakao_account.email","kakao_account.gender"]
-            },
+
             success: function(response) {
                 console.log('info: ', response);
             },
