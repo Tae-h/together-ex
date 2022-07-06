@@ -7,11 +7,11 @@ import {useCallback, useEffect, useState} from "react";
 import {LOG_IN_REQUEST} from "../reducers/user";
 import {AlipayOutlined, LockOutlined, UserOutlined} from "@ant-design/icons";
 
-const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div`
   margin-top: 10px;
   text-align: center;
 `
-const FormWrapper = styled(Form)`
+export const FormWrapper = styled(Form)`
   padding: 10px;
   margin-top: 50px;
 `;
