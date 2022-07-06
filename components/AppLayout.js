@@ -3,8 +3,11 @@ import React, {useState} from 'react';
 import {Avatar, Badge, Button, Card, Col, Drawer, Layout, Menu, Popover, Row, Space} from 'antd';
 import styled, {createGlobalStyle} from "styled-components";
 import SiderMenu from "./SiderMenu";
+
+
 import Link from "next/link";
 import {
+    EditOutlined,
     MenuFoldOutlined,
     MenuOutlined,
     MenuUnfoldOutlined, UploadOutlined,
@@ -71,6 +74,24 @@ const Global = createGlobalStyle`
       box-shadow: 0 1px 2px -2px rgb(0 0 0 / 16%), 0 3px 6px 0 rgb(0 0 0 / 12%), 0 5px 12px 4px rgb(0 0 0 / 9%);
   }
   
+  .wrap .ant-layout {
+     
+  }
+  .wrap .ant-layout .btn-wrap {
+      position: fixed;
+      right: 25px;
+      bottom: 60px;
+  }
+  .wrap .ant-layout .btn-wrap .edit-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+  }
   
 `;
 
@@ -135,7 +156,7 @@ const AppLayout = ( { children } ) => {
 
     return (
 
-        <LayoutWrapper>
+        <LayoutWrapper className={'wrap'}>
             <Global />
 
             {/* 사이드 메뉴 */}
@@ -221,6 +242,9 @@ const AppLayout = ( { children } ) => {
                 <Footer style={{ textAlign: 'center'}} >
 
                 </Footer>
+                <div className={'btn-wrap'}>
+                    <EditOutlined className={'edit-btn'} />
+                </div>
             </Layout>
         </LayoutWrapper>
     );
