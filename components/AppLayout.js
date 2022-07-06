@@ -113,10 +113,7 @@ const ContentWrapper = styled(Layout.Content)`
   width: 100%;
   background: #fff;
 `
-const CardStyles = styled(Card)`
-    border-radius: 8px;
-    overflow: auto;
-`
+
 
 
 const style = {
@@ -138,6 +135,39 @@ const content = (
         )}
     />
 );
+
+
+
+const widgetMenus = [
+    {
+        key: '1',
+        label: (
+            <Link href="/write"><a>글쓰기</a></Link>
+        ),
+    },
+    {
+        key: '2',
+        label: (
+            <Link href="/write"><a>글쓰기</a></Link>
+        ),
+    },
+    {
+        key: '3',
+        label: (
+            <Link href="/write"><a>글쓰기</a></Link>
+        ),
+    }
+];
+
+const fixedWidget = (
+    <Menu
+        theme="light"
+        mode="inline"
+        defaultSelectedKeys={['1']}
+        items={widgetMenus}
+    />
+
+)
 
 
 const AppLayout = ( { children } ) => {
@@ -220,30 +250,19 @@ const AppLayout = ( { children } ) => {
                 {/* 컨텐츠 */}
                 <Content>
                     <ContentWrapper>
-                        <Space direction="vertical" size="middle" style={{ display: 'flex' }} className={'card-list'}>
-                            <CardStyles title="Card" size="small" hoverable>
-                                <p>Card content</p>
-                                <p>Card content</p>
-                            </CardStyles>
-                            <CardStyles title="Card" size="small" hoverable>
-                                <p>Card content</p>
-                                <p>Card content</p>
-                            </CardStyles>
-                            <CardStyles title="Card" size="small" hoverable>
-                                <p>Card content</p>
-                                <p>Card content</p>
-                            </CardStyles>
-
-                        </Space>
-
+                        {children}
                     </ContentWrapper>
                 </Content>
 
                 <Footer style={{ textAlign: 'center'}} >
 
                 </Footer>
+
+                {/* fixed-widget */}
                 <div className={'btn-wrap'}>
-                    <EditOutlined className={'edit-btn'} />
+                    <Popover placement="topRight" content={fixedWidget} trigger="click">
+                        <EditOutlined className={'edit-btn'} />
+                    </Popover>
                 </div>
             </Layout>
         </LayoutWrapper>
