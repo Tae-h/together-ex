@@ -2,6 +2,8 @@ import {fork, all, put, call, delay, takeLatest} from "redux-saga/effects";
 //import { takeLatest} from "redux-saga";
 import axios from "axios";
 import {
+    KAKAO_LOGIN_FAILURE,
+    KAKAO_LOGIN_REQUEST, KAKAO_LOGIN_SUCCESS,
     LOG_IN_FAILURE,
     LOG_IN_REQUEST,
     LOG_IN_SUCCESS,
@@ -85,6 +87,24 @@ function* signUp(action) {
     }
 }
 
+function* kakaoLogIn() {
+    try {
+        console.log('sagas: ', Kakao.isInitialized());
+        yield Kakao.Auth.login({
+            success: auth => {
+                console.log('Login', auth);
+            },
+            fail: error => {
+                console.error('login error', error);
+            },
+        });
+    } catch ( err ) {
+        yield put({
+            type: KAKAO_LOGIN_FAILURE,
+            error: err.response.data,
+        })
+    }
+}
 
 
 // 이벤트 리스너 같은 역할
@@ -100,11 +120,15 @@ function* watchSignUp() {
     yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
 
+function* watchKakaoLogIn() {
+    yield takeLatest(KAKAO_LOGIN_REQUEST, kakaoLogIn);
+}
 
 
 export default function* userSaga () {
 
     yield all([
+        fork(watchKakaoLogIn),
         fork(watchLogIn),
         fork(watchLogOut),
         fork(watchSignUp),

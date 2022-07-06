@@ -24,10 +24,15 @@ export const initialState = {
     loadUserDone: false,
     loadUserError: null,
 
+    kakaoLoginLoading: false,
+    kakaoLoginDone: false,
+    kakaoLoginError: null,
 
 };
 
-
+export const KAKAO_LOGIN_REQUEST = 'KAKAO_LOGIN_REQUEST';
+export const KAKAO_LOGIN_SUCCESS = 'KAKAO_LOGIN_SUCCESS';
+export const KAKAO_LOGIN_FAILURE = 'KAKAO_LOGIN_FAILURE';
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
@@ -41,13 +46,7 @@ export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 
-export const FOLLOW_REQUEST = 'FOLLOW_REQUEST';
-export const FOLLOW_SUCCESS = 'FOLLOW_SUCCESS';
-export const FOLLOW_FAILURE = 'FOLLOW_FAILURE';
 
-export const UNFOLLOW_REQUEST = 'UNFOLLOW_REQUEST';
-export const UNFOLLOW_SUCCESS = 'UNFOLLOW_SUCCESS';
-export const UNFOLLOW_FAILURE = 'UNFOLLOW_FAILURE';
 
 export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
 export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
@@ -70,7 +69,6 @@ export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 const reducer = (state = initialState, action) => {
     return produce(state, (draft) => {
         switch (action.type) {
-
             case LOAD_MY_INFO_REQUEST: {
                 draft.loadMyInfoLoading = true;
                 draft.loadMyInfoError = null;
@@ -105,6 +103,23 @@ const reducer = (state = initialState, action) => {
                 draft.loadUserError = action.error;
                 break;
 
+            case KAKAO_LOGIN_REQUEST: {
+                draft.kakaoLoginLoading = true;
+                draft.kakaoLoginDone = false;
+                draft.kakaoLoginError = null;
+            }
+            case KAKAO_LOGIN_SUCCESS: {
+                console.log('success! ', action.data);
+                draft.kakaoLoginLoading = false;
+                draft.kakaoLoginDone = true;
+                draft.me = action.data;
+            }
+            case KAKAO_LOGIN_FAILURE: { // 로그인 실패 시
+                draft.kakaoLoginDone = false;
+                draft.kakaoLoginLoading = false;
+                draft.kakaoLoginError = action.error;
+                break;
+            }
 
             /* 로그인 */
             case LOG_IN_REQUEST: {
@@ -114,7 +129,6 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOG_IN_SUCCESS: {
-                console.log('login success!!');
                 draft.loginLoading = false;
                 draft.loginDone = true;
                 draft.me = action.data;
