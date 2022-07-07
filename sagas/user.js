@@ -58,7 +58,7 @@ function* logOut() {
         //const result = yield call(logoutAPI);
         yield put({ // put 특정 action 을 dispatch 시켜줌
             type: LOG_OUT_SUCCESS,
-           // //data: result.data // 성공 결과
+            data: null,
             //data: action.data
         });
     } catch (err) { // err.response.data

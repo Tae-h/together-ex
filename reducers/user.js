@@ -28,11 +28,19 @@ export const initialState = {
     kakaoLoginDone: false,
     kakaoLoginError: null,
 
+    kakaoLogoutLoading: false,
+    kakaoLogoutDone: false,
+    kakaoLogoutError: null,
+
 };
 
 export const KAKAO_LOGIN_REQUEST = 'KAKAO_LOGIN_REQUEST';
 export const KAKAO_LOGIN_SUCCESS = 'KAKAO_LOGIN_SUCCESS';
 export const KAKAO_LOGIN_FAILURE = 'KAKAO_LOGIN_FAILURE';
+
+export const KAKAO_LOGOUT_REQUEST = 'KAKAO_LOGOUT_REQUEST';
+export const KAKAO_LOGOUT_SUCCESS = 'KAKAO_LOGOUT_SUCCESS';
+export const KAKAO_LOGOUT_FAILURE = 'KAKAO_LOGOUT_FAILURE';
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
@@ -109,7 +117,6 @@ const reducer = (state = initialState, action) => {
                 draft.kakaoLoginError = null;
             }
             case KAKAO_LOGIN_SUCCESS: {
-                console.log('success! ', action.data);
                 draft.kakaoLoginLoading = false;
                 draft.kakaoLoginDone = true;
                 draft.me = action.data;

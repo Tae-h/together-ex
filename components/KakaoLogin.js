@@ -28,16 +28,7 @@ const KakaoLogin = () => {
             type: KAKAO_LOGIN_REQUEST,
         });
 
-        /*Kakao.Auth.login({
-            success: auth => {
-                console.log('Login', auth);
-                getKakaoUserInfo();
-            },
-            fail: error => {
-                console.error('login error', error);
-                alert(JSON.stringify(error));
-            },
-        });*/
+
     }
 
     const getKakaoUserInfo = () => {
@@ -61,7 +52,7 @@ const KakaoLogin = () => {
                     <Space size={8}>
                         <Button
                             style={{ backgroundColor: '#f9dc02', color: '#361d1c'}}
-                            onClick={kakaoLogin}
+                            onClick={ kakaoLogin }
                         >
                             카카오톡으로 시작하기
                         </Button>

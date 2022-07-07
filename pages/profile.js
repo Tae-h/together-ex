@@ -1,6 +1,7 @@
 import AppLayout from "../components/AppLayout";
 import Head from "next/head";
 import {memo} from "react";
+import GroupList from "../components/GroupList";
 
 
 
@@ -10,12 +11,11 @@ const Profile = memo(() => {
     return (
         <>
             <Head>
-                <title> 내 정보 </title>
+                <title>프로필</title>
             </Head>
             <AppLayout>
-                아이디
-                패스워드
-
+                <GroupList header="축구"/>
+                <GroupList header="농구"/>
             </AppLayout>
         </>
     );

@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Avatar, Badge, Button, Card, Col, Drawer, Layout, Menu, Popover, Row, Space} from 'antd';
 import styled, {createGlobalStyle} from "styled-components";
 import SiderMenu from "./SiderMenu";
-
+import Router from "next/router";
 
 import Link from "next/link";
 import {
-    EditOutlined,
+    EditOutlined, LogoutOutlined,
     MenuFoldOutlined,
     MenuOutlined,
     MenuUnfoldOutlined, UploadOutlined,
@@ -15,6 +15,8 @@ import {
     UserOutlined,
     VideoCameraOutlined
 } from "@ant-design/icons";
+import {useDispatch} from "react-redux";
+import {KAKAO_LOGOUT_REQUEST, LOG_OUT_FAILURE, LOG_OUT_REQUEST} from "../reducers/user";
 const { Header, Content, Footer, Sider } = Layout;
 
 /* styled-components 로 빼면 리렌더링이 되지 않음 */
@@ -121,42 +123,14 @@ const style = {
     padding: '8px 0',
 };
 
-const content = (
-    <Menu
-        theme="light"
-        mode="inline"
-        defaultSelectedKeys={['1']}
-        items={[UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
-            (icon, index) => ({
-                key: String(index + 1),
-                icon: React.createElement(icon),
-                label: `nav ${index + 1}`,
-            }),
-        )}
-    />
-);
+
 
 
 
 const widgetMenus = [
-    {
-        key: '1',
-        label: (
-            <Link href="/write"><a>글쓰기</a></Link>
-        ),
-    },
-    {
-        key: '2',
-        label: (
-            <Link href="/write"><a>글쓰기</a></Link>
-        ),
-    },
-    {
-        key: '3',
-        label: (
-            <Link href="/write"><a>글쓰기</a></Link>
-        ),
-    }
+    {key: '1', label: (<Link href="/write"><a>글쓰기</a></Link>)},
+    {key: '2', label: (<Link href="/write"><a>글쓰기</a></Link>)},
+    {key: '3', label: (<Link href="/write"><a>글쓰기</a></Link>)},
 ];
 
 const fixedWidget = (
@@ -164,14 +138,19 @@ const fixedWidget = (
         theme="light"
         mode="inline"
         defaultSelectedKeys={['1']}
-        items={widgetMenus}
+        items={ widgetMenus }
     />
 
 )
 
+const menus = [
+    {key: 'all', label: (<Link href="/" title={"전체"}><a>전체</a></Link>)},
+    {key: 'soccer', label: (<Link href="/posts/soccer" title={"축구"}><a>축구</a></Link>)},
+    {key: 'basket', label: (<Link href="/posts/basket" title={"농구"}><a>농구</a></Link>)},
+]
 
 const AppLayout = ( { children } ) => {
-
+    const dispatch = useDispatch();
     const [collapsed, setCollapsed] = useState(false);
     const [visible, setVisible] = useState(false);
 
@@ -184,13 +163,30 @@ const AppLayout = ( { children } ) => {
         setVisible(false);
     };
 
+    const onLogout = useCallback(() => {
+        dispatch({
+            type: LOG_OUT_REQUEST,
+        });
+    }, []);
+
+
+    const profileContent = (
+        <Menu
+            theme="light"
+            mode="inline"
+            defaultSelectedKeys={['1']}
+            items={[
+                {key: '1', label: (<Link href="/profile" title={"프로필"}><a>프로필</a></Link>), icon: <UserOutlined />},
+                {key: '2', label: (<Link href="/" title={"로그아웃"}><a onClick={ onLogout }>로그아웃</a></Link>), icon: <LogoutOutlined />},
+            ]}
+        />
+    );
+
+
     return (
 
         <LayoutWrapper className={'wrap'}>
             <Global />
-
-            {/* 사이드 메뉴 */}
-            {/*<SiderMenu />*/}
 
             <Layout>
                 {/* 헤더 */}
@@ -199,9 +195,7 @@ const AppLayout = ( { children } ) => {
                         <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4} style={{ textAlign: 'center' }}>
                             <Button
                                 onClick={toggleCollapsed}
-                                style={{
-                                    marginBottom: 16,
-                                }}
+                                style={{ marginBottom: 16 }}
                                 type="text"
                                 size={"large"}
                                 ghost={false}
@@ -221,13 +215,7 @@ const AppLayout = ( { children } ) => {
                                     theme="light"
                                     mode="inline"
                                     defaultSelectedKeys={['1']}
-                                    items={[UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
-                                        (icon, index) => ({
-                                            key: String(index + 1),
-                                            icon: React.createElement(icon),
-                                            label: `nav ${index + 1}`,
-                                        }),
-                                    )}
+                                    items={ menus }
                                 />
                             </Drawer>
                         </Col>
@@ -236,9 +224,9 @@ const AppLayout = ( { children } ) => {
                             <Link href="/" ><a style={{ textAlign: 'center' }}>로고</a></Link>
                         </Col>
 
-
+                        {/* 프로필  */}
                         <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4} style={{ textAlign: 'center' }}>
-                            <Popover placement="bottomRight"  content={content} trigger="click">
+                            <Popover placement="bottomRight"  content={ profileContent } trigger="click">
                                 <Badge count={1}>
                                     <Avatar  icon={<UserOutlined />} />
                                 </Badge>
@@ -254,18 +242,18 @@ const AppLayout = ( { children } ) => {
                     </ContentWrapper>
                 </Content>
 
-                <Footer style={{ textAlign: 'center'}} >
-
-                </Footer>
+                {/*<Footer style={{ textAlign: 'center'}} >
+                </Footer>*/}
 
                 {/* fixed-widget */}
                 <div className={'btn-wrap'}>
                     <div className={'btn'}>
-                        <Popover placement="topRight" content={fixedWidget} trigger="click">
+                        <Popover placement="topRight" content={ fixedWidget } trigger="click">
                             <EditOutlined className={'edit-btn'} />
                         </Popover>
                     </div>
                 </div>
+
             </Layout>
         </LayoutWrapper>
     );

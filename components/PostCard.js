@@ -1,7 +1,8 @@
-import {memo} from "react";
+import {memo, useEffect} from "react";
 import {Card, Space} from "antd";
 import React from "react";
 import styled from "styled-components";
+import {useRouter} from "next/router";
 
 
 export const CardStyles = styled(Card)`
@@ -10,6 +11,12 @@ export const CardStyles = styled(Card)`
 `
 
 const PostCard = memo(() => {
+
+    const router = useRouter();
+
+    useEffect(() => {
+
+    }, []);
 
 
     return (

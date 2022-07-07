@@ -12,7 +12,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        console.log('login result: ', me);
+        console.log('Home! :  ', me);
     }, [me]);
 
   return (
