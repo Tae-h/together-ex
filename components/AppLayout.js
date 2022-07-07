@@ -77,7 +77,7 @@ const Global = createGlobalStyle`
   .wrap .ant-layout .btn-wrap {
       position: fixed;
       right: 25px;
-      bottom: 60px;
+      bottom: 110px;
   }
   .wrap .ant-layout .btn-wrap .btn {
       display: flex;
