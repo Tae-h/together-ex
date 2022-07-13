@@ -1,27 +1,18 @@
 import PropTypes from 'prop-types';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {Avatar, Badge, Button, Card, Col, Drawer, Layout, Menu, Popover, Row, Space} from 'antd';
 import styled, {createGlobalStyle} from "styled-components";
-import SiderMenu from "./SiderMenu";
-import Router from "next/router";
-
 import Link from "next/link";
 import {
     EditOutlined, LogoutOutlined,
-    MenuFoldOutlined,
-    MenuOutlined,
-    MenuUnfoldOutlined, UploadOutlined,
-    UserAddOutlined,
+    MenuOutlined, PlusOutlined, TeamOutlined,
     UserOutlined,
-    VideoCameraOutlined
 } from "@ant-design/icons";
 import {useDispatch} from "react-redux";
 import {KAKAO_LOGOUT_REQUEST, LOG_OUT_FAILURE, LOG_OUT_REQUEST} from "../reducers/user";
 const { Header, Content, Footer, Sider } = Layout;
 
 /* styled-components 로 빼면 리렌더링이 되지 않음 */
-
-
 const Global = createGlobalStyle`
   .ant-popover-inner-content {
     padding: 0 !important;
@@ -125,15 +116,12 @@ const style = {
 
 
 
-
-
 const widgetMenus = [
-    {key: '1', label: (<Link href="/write"><a>글쓰기</a></Link>)},
-    {key: '2', label: (<Link href="/write"><a>글쓰기</a></Link>)},
-    {key: '3', label: (<Link href="/write"><a>글쓰기</a></Link>)},
+    {key: 'write', label: (<Link href="/write" title={"글쓰기"} ><a>글쓰기</a></Link>), icon: <EditOutlined />},
+    {key: 'team', label: (<Link href="/team" title={"팀 만들기"} ><a>팀 만들기</a></Link>), icon: <TeamOutlined />},
 ];
 
-const fixedWidget = (
+const widgetContents = (
     <Menu
         theme="light"
         mode="inline"
@@ -153,15 +141,16 @@ const AppLayout = ( { children } ) => {
     const dispatch = useDispatch();
     const [collapsed, setCollapsed] = useState(false);
     const [visible, setVisible] = useState(false);
+    const widgetRef = useRef(null);
 
     const toggleCollapsed = () => {
         setCollapsed(!collapsed);
         setVisible(true);
     };
 
-    const onClose = () => {
+    const onClose = useCallback(() => {
         setVisible(false);
-    };
+    }, []);
 
     const onLogout = useCallback(() => {
         dispatch({
@@ -169,6 +158,9 @@ const AppLayout = ( { children } ) => {
         });
     }, []);
 
+    const onWidgetClick = useCallback(() => {
+        widgetRef.current.onClick();
+    }, [widgetRef.current]);
 
     const profileContent = (
         <Menu
@@ -246,10 +238,10 @@ const AppLayout = ( { children } ) => {
                 </Footer>*/}
 
                 {/* fixed-widget */}
-                <div className={'btn-wrap'}>
+                <div className={'btn-wrap'} onClick={ onWidgetClick }>
                     <div className={'btn'}>
-                        <Popover placement="topRight" content={ fixedWidget } trigger="click">
-                            <EditOutlined className={'edit-btn'} />
+                        <Popover placement="topRight" content={ widgetContents } trigger="click" ref={ widgetRef }>
+                            <PlusOutlined  className={'edit-btn'} />
                         </Popover>
                     </div>
                 </div>
