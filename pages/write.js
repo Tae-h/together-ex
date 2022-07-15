@@ -7,6 +7,7 @@ import {Layout} from "antd";
 const { Content, Footer } = Layout;
 import { Input } from 'antd';
 const { TextArea } = Input;
+import {createGlobalStyle} from "styled-components";
 const onChange = (e) => {
     console.log('Change:', e.target.value);
 };
@@ -17,6 +18,7 @@ import {
 } from "@ant-design/icons";
 
 const headerWrite = {
+    paddingBottom: '10px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -35,12 +37,25 @@ const headerBtn = {
     fontSize: '1rem',
     fontWeight: '700',
 }
-
+const inputBox = {
+    paddingBottom: '10px',
+}
+const Global = createGlobalStyle`
+    .input-box .ant-input-affix-wrapper {
+        padding: 20px;
+        border: none;
+        border-bottom: 1px solid #ddd;
+    }
+    .input-box .ant-input-textarea textarea {
+        border: none;
+    }
+`
 const Write = memo(() => {
 
 
     return (
         <>
+            <Global />
             <AppLayout>
                 <div className="header" style={{...headerWrite}}>
                     <div className="prev-btn">
@@ -55,11 +70,11 @@ const Write = memo(() => {
                 </div>
 
                 <Content>
-                    <div className="input-box">
+                    <div className="input-box" style={{...inputBox}}>
                         <Input showCount placeholder="제목" maxLength={40} onChange={onChange} />
                     </div>
-                    <div className="input-box">
-                        <TextArea showCount placeholder='내용을 입력해주세요' maxLength={100} onChange={onChange} />
+                    <div className="input-box" style={{...inputBox}}>
+                        <TextArea showCount placeholder='내용을 입력해주세요' maxLength={100} onChange={onChange} style={{height: 200,}} />
                     </div>
                 </Content>
             </AppLayout>
