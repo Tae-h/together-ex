@@ -1,11 +1,15 @@
 import {memo} from "react";
 import React from 'react';
 import AppLayout from "../components/AppLayout";
+import Head from "next/head";
+import styled from 'styled-components';
 import {Layout} from "antd";
 const { Content, Footer } = Layout;
 import { Input } from 'antd';
 const { TextArea } = Input;
-
+const onChange = (e) => {
+    console.log('Change:', e.target.value);
+};
 
 
 import {
@@ -34,9 +38,6 @@ const headerBtn = {
 
 const Write = memo(() => {
 
-    const onChange = (e) => {
-        console.log('Change:', e.target.value);
-    };
 
     return (
         <>
