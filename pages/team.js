@@ -1,5 +1,4 @@
 import {memo} from "react";
-import Head from "next/head";
 import AppLayout from "../components/AppLayout";
 import {Col, Form, Input, Layout, Row, Select} from "antd";
 import {Option} from "antd/es/mentions";
@@ -10,11 +9,7 @@ const Team = memo(() => {
 
     return (
         <>
-            <Head>
-                <title>
-                    팀 만들기 | 운동할래?
-                </title>
-            </Head>
+
 
             <AppLayout>
                 <Content>
@@ -41,8 +36,8 @@ const Team = memo(() => {
                                     rules={[{ required: true, message: '종목을 선택해 주세요.' }]}
                                 >
                                     <Select placeholder="종목을 선택해 주세요.">
-                                        <Option value="soccer">축구</Option>
-                                        <Option value="basket">농구</Option>
+                                        <Select.Option value="soccer">축구</Select.Option>
+                                        <Select.Option value="basket">농구</Select.Option>
                                     </Select>
                                 </Form.Item>
                             </Col>
