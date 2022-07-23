@@ -1,15 +1,10 @@
 import {memo} from "react";
 import React from 'react';
-import AppLayout from "../components/AppLayout";
-import Head from "next/head";
-import styled from 'styled-components';
+import AppLayout from "../../components/AppLayout";
 import {Layout} from "antd";
 const { Content, Footer } = Layout;
 import { Input } from 'antd';
 const { TextArea } = Input;
-const onChange = (e) => {
-    console.log('Change:', e.target.value);
-};
 
 
 import {
@@ -38,6 +33,9 @@ const headerBtn = {
 
 const Write = memo(() => {
 
+    const onChange = (e) => {
+        console.log('Change:', e.target.value);
+    };
 
     return (
         <>
@@ -56,10 +54,10 @@ const Write = memo(() => {
 
                 <Content>
                     <div className="input-box">
-                        <Input showCount placeholder="제목" maxLength={40} onChange={onChange} />
+                        <Input showCount placeholder="제목" maxLength={40} onChange={ onChange } />
                     </div>
                     <div className="input-box">
-                        <TextArea showCount placeholder='내용을 입력해주세요' maxLength={100} onChange={onChange} />
+                        <TextArea showCount placeholder='내용을 입력해주세요' maxLength={100} onChange={ onChange } />
                     </div>
                 </Content>
             </AppLayout>

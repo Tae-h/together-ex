@@ -2,17 +2,18 @@ import React, {useEffect} from 'react';
 import AppLayout from "../components/AppLayout";
 import LoginForm from "../components/LoginForm";
 import {useSelector} from "react-redux";
-import {Avatar, Card, Col} from "antd";
 import KakaoLogin from "../components/KakaoLogin";
 import PostCard from "../components/PostCard";
+import {useRouter} from "next/router";
 
 const Home = () => {
     const { me } = useSelector((state) => state.user);
     const { mainPosts } = useSelector((state) => state.post );
-
+    const router = useRouter();
 
     useEffect(() => {
         console.log('Home! :  ', me);
+        console.log();
     }, [me]);
 
   return (

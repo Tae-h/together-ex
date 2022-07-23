@@ -1,6 +1,14 @@
 import produce from "../util/produce";
 
 export const initialState = {
+    soccerPosts: [
+
+    ],
+
+    basketPosts: [
+
+    ],
+
     mainPosts: [
 
     ],
@@ -71,6 +79,11 @@ export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
 export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 
 
+export const SOCCER_POSTS_REQUEST = 'SOCCER_POSTS_REQUEST';
+export const SOCCER_POSTS_SUCCESS = 'SOCCER_POSTS_SUCCESS';
+export const SOCCER_POSTS_FAILURE = 'SOCCER_POSTS_FAILURE';
+
+
 
 
 // reducer : 이전 상태를 액션을 통해 다음 상태로 만들어내는 함 (불변성은 지켜야함)
@@ -94,6 +107,18 @@ const reducer = (state = initialState, action) => {
             case LOAD_POST_FAILURE:
                 draft.loadPostLoading = false;
                 draft.loadPostError = action.error;
+                break;
+
+            case SOCCER_POSTS_REQUEST:
+
+                break;
+
+            case SOCCER_POSTS_SUCCESS:
+
+                break;
+
+            case SOCCER_POSTS_FAILURE:
+
                 break;
 
             default:

@@ -3,6 +3,7 @@ import {Card, Space} from "antd";
 import React from "react";
 import styled from "styled-components";
 import {useRouter} from "next/router";
+import {useDispatch} from "react-redux";
 
 
 export const CardStyles = styled(Card)`
@@ -12,10 +13,9 @@ export const CardStyles = styled(Card)`
 
 const PostCard = memo(() => {
 
-    const router = useRouter();
+    const dispatch = useDispatch();
 
     useEffect(() => {
-
     }, []);
 
 

@@ -9,8 +9,8 @@ import {
     UserOutlined,
 } from "@ant-design/icons";
 import {useDispatch} from "react-redux";
-import {KAKAO_LOGOUT_REQUEST, LOG_OUT_FAILURE, LOG_OUT_REQUEST} from "../reducers/user";
-const { Header, Content, Footer, Sider } = Layout;
+import {LOG_OUT_REQUEST} from "../reducers/user";
+const { Header, Content } = Layout;
 
 /* styled-components 로 빼면 리렌더링이 되지 않음 */
 const Global = createGlobalStyle`
@@ -98,27 +98,17 @@ const LayoutWrapper = styled(Layout)`
 
 const ContentWrapper = styled(Layout.Content)`
   padding: 24px;
-  minHeight: 360;
+  min-height: 360px;
   height: 100%;
   width: 100%;
   background: #fff;
 `
-const CardStyles = styled(Card)`
-    border-radius: 8px;
-    overflow: auto;
-`
-
-
-const style = {
-    background: '#0092ff',
-    padding: '8px 0',
-};
 
 
 
 const widgetMenus = [
     {key: 'write', label: (<Link href="/write" title={"글쓰기"} ><a>글쓰기</a></Link>), icon: <EditOutlined />},
-    {key: 'team', label: (<Link href="/team" title={"팀 만들기"} ><a>팀 만들기</a></Link>), icon: <TeamOutlined />},
+    {key: 'team', label: (<Link href="/write/team" title={"팀 만들기"} ><a>팀 만들기</a></Link>), icon: <TeamOutlined />},
 ];
 
 const widgetContents = (
@@ -168,8 +158,9 @@ const AppLayout = ( { children } ) => {
             mode="inline"
             defaultSelectedKeys={['1']}
             items={[
-                {key: '1', label: (<Link href="/profile" title={"프로필"}><a>프로필</a></Link>), icon: <UserOutlined />},
-                {key: '2', label: (<Link href="/" title={"로그아웃"}><a onClick={ onLogout }>로그아웃</a></Link>), icon: <LogoutOutlined />},
+                {key: 'profile_1', label: (<Link href="/profile" title={"프로필"}><a>프로필</a></Link>), icon: <UserOutlined />},
+                {key: 'group_2', label: (<Link href="/group" title={"내 팀보기"}><a onClick={ onLogout }>내 팀보기</a></Link>), icon: <TeamOutlined />},
+                {key: 'logout_3', label: (<Link href="/" title={"로그아웃"}><a onClick={ onLogout }>로그아웃</a></Link>), icon: <LogoutOutlined />},
             ]}
         />
     );
